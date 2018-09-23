@@ -16,16 +16,7 @@ public class BoatController1 : MonoBehaviour
     shipRb = GetComponent<Rigidbody>();
     maxSpeed = 10.0f;
     shipVelocity = 0;
-
-    // StartCoroutine(InfiniteDrag());
   }
-
-  // IEnumerator InfiniteDrag()
-  //   {
-  //       shipRb.drag = Mathf.Infinity;
-  //       yield return new WaitForSecondsRealtime(1);
-  //       shipRb.drag = 0.1f;
-  //   }
 
   void Update()
   {

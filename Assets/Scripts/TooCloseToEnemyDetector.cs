@@ -18,7 +18,6 @@ public class TooCloseToEnemyDetector : MonoBehaviour
     if (otherColl.gameObject.tag == "EnemyShip")
     {
       tooClose = true;
-      // Debug.Log("Too close to enemy");
       playerAI.SetObstacleDetected(otherColl.gameObject);
     }
   }
@@ -28,7 +27,6 @@ public class TooCloseToEnemyDetector : MonoBehaviour
     if (otherColl.gameObject.tag == "EnemyShip")
     {
       tooClose = false;
-      // Debug.Log("Already not too close to enemy");
       playerAI.SetObstacleNotDetected(otherColl.gameObject);
     }
   }

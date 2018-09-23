@@ -6,11 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(EnemyBoatController))]
 public class PlayerAI : MonoBehaviour
 {
-  // string sailingDirection;
-  // bool isEndOfSailingAgainstWind;
-  // float sailingAgainstWindTime;
-  // public bool sailingAgainstWind;
-
   public GameObject[] cannons;
   float[] cannonsTimeOfNextFire;
 

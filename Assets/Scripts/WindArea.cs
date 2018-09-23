@@ -7,7 +7,6 @@ public class WindArea : MonoBehaviour
 {
   public float windStrength = 5;
   public Vector3 windDirection = Vector3.right;
-  // public Text windAngle;
   public GameObject arrow;
 
   float changeDirectiontime;
@@ -19,7 +18,6 @@ public class WindArea : MonoBehaviour
   {
     enemyAI = GameObject.Find("Enemy Ship").GetComponent<EnemyAI>();
     changeDirectiontime = Time.time + Random.Range(10.0f, 20.0f);
-    // windAngle.text = "Wind angle: " + 90;
     arrow.transform.eulerAngles = new Vector3(0, 90, 0);
   }
 

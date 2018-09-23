@@ -5,19 +5,6 @@ using UnityEngine;
 public class CannonActions : MonoBehaviour
 {
 
-  void Start()
-  {
-    // StartCoroutine(Example());
-  }
-
-  // IEnumerator Example()
-  // {
-  //     print(Time.time);
-  //     yield return new WaitForSecondsRealtime(3);
-  //     print(Time.time);
-  //   StartCoroutine(BackAndForth());
-  // }
-
   public IEnumerator FireToOpponentShip(GameObject opponent)
   {
     float fireDelay = Random.Range(0.0f, 0.4f);

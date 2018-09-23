@@ -7,39 +7,22 @@ public class EnemyBoatController : MonoBehaviour
   public GameObject mast;
   public GameObject[] sails;
   public float shipVelocity;
-  // public float angularVelocityValue;
   public float maxSpeed = 10;
 
-  // float horizontalSailsInput;
-  // private WindEffect windEffect;
   private Rigidbody shipRb;
   Vector3 currentShipDirection;
   public Vector3 designatedShipDirection;
   public float angleBetweenCurrentAndDesignatedShipDirection;
 
-  //  float velocityToTorqueFactor = 1.0f; //something like maneuverability
-  // Vector3 lastShipDirection;
-  // public float centripetalForceFactor = 1.0f;
-
-  //--change to local--start
   public float currentSailsToShipAngle;
   public float diffBetweenNewAndCurrentSailsToShipAngle;
-  //--change to local--end
 
-  // float duration = 1;
-  // float startTime;
-  // float previousAngleToRotate = 0;
-  // public float currentAngleToRotate = 0;
 
   void Start()
   {
     shipRb = GetComponent<Rigidbody>();
     currentShipDirection = new Vector3(transform.forward.x, 0, transform.forward.z);
     designatedShipDirection = currentShipDirection;
-
-    // TEST
-    // startTime = Time.time;
-    // TEST
   }
 
   void FixedUpdate()
@@ -88,14 +71,11 @@ public class EnemyBoatController : MonoBehaviour
         shipVelocity = maxSpeed / 2f;
     }
 
-    // TEST
     currentShipDirection = new Vector3(transform.forward.x, 0, transform.forward.z);
-    // TEST
 
     angleBetweenCurrentAndDesignatedShipDirection = Vector3.SignedAngle(currentShipDirection, designatedShipDirection, Vector3.up);
     if (Mathf.Abs(angleBetweenCurrentAndDesignatedShipDirection) > 0.5)
     {
-      // TEST
       if (angleBetweenCurrentAndDesignatedShipDirection > 0) directionFactor = 1;
       else directionFactor = -1;
 
@@ -107,10 +87,6 @@ public class EnemyBoatController : MonoBehaviour
         changeDirection = angleBetweenCurrentAndDesignatedShipDirection;
 
       transform.Rotate(0.0f, changeDirection, 0.0f);
-      // TEST
-      // currentAngleToRotate = Mathf.SmoothStep(0, angleBetweenCurrentAndDesignatedShipDirection, (Time.time - startTime) / duration) - previousAngleToRotate;
-      // previousAngleToRotate = Mathf.SmoothStep(0, angleBetweenCurrentAndDesignatedShipDirection, (Time.time - startTime) / duration);
-      // transform.Rotate(0.0f, currentAngleToRotate, 0.0f);
     }
 
     float yVelocity = shipRb.velocity.y;
@@ -127,11 +103,6 @@ public class EnemyBoatController : MonoBehaviour
   public void SetNewShipDirection(Vector3 newShipDirection)
   {
     designatedShipDirection = newShipDirection;
-    // currentShipDirection = new Vector3(transform.forward.x, 0, transform.forward.z);
-    // Debug.Log("newShipDirection: " + Vector3.SignedAngle(currentShipDirection, designatedShipDirection, Vector3.up));
-    // duration = 2.0f;
-    // startTime = Time.time;
-    // previousAngleToRotate = 0;
   }
 
   public void SetSailsAtGivenAngle(float newSailsToShipAngle)
