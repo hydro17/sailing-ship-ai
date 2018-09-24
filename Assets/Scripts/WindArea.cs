@@ -10,13 +10,11 @@ public class WindArea : MonoBehaviour
   public GameObject arrow;
 
   float changeDirectiontime;
-  EnemyAI enemyAI;
 
   const float degToRad = 0.0174532f;
 
   private void Start()
   {
-    enemyAI = GameObject.Find("Enemy Ship").GetComponent<EnemyAI>();
     changeDirectiontime = Time.time + Random.Range(10.0f, 20.0f);
     arrow.transform.eulerAngles = new Vector3(0, 90, 0);
   }
@@ -28,7 +26,7 @@ public class WindArea : MonoBehaviour
       changeDirectiontime = Time.time + Random.Range(10.0f, 20.0f);
 
       float rotationAngleInDeg = Random.Range(-90.0f, 90.0f);
-      windDirection = enemyAI.GetRotatedVector(windDirection, rotationAngleInDeg * degToRad);
+      windDirection = AIHelperFunctions.GetRotatedVector(windDirection, rotationAngleInDeg * degToRad);
       arrow.transform.eulerAngles = new Vector3(0, Vector3.SignedAngle(Vector3.forward, windDirection, Vector3.up), 0); ;
     }
   }
