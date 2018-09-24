@@ -18,7 +18,7 @@ public class EnemyDetector : MonoBehaviour
     if (coll.gameObject.tag == "EnemyShip")
     {
       enemyDetected = true;
-      playerAI.SetPlayerShipDetected(coll.gameObject); //shoud be SetEnemyShipDetected
+      playerAI.SetEnemyShipDetected(coll.gameObject);
     }
   }
 
@@ -27,7 +27,7 @@ public class EnemyDetector : MonoBehaviour
     if (coll.gameObject.tag == "EnemyShip")
     {
       enemyDetected = false;
-      playerAI.SetPlayerShipNotDetected(); //shoud be SetEnemyShipNotDetected
+      playerAI.SetEnemyShipNotDetected();
     }
   }
 }

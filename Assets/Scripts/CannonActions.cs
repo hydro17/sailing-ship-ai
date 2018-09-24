@@ -19,28 +19,21 @@ public class CannonActions : MonoBehaviour
 
   IEnumerator BackAndForth()
   {
-    // Vector3 initialPosition = transform.position;
-    // Vector3 intermediatePosition = Vector3.zero;
-
     float timeOfTheEndOfTheMoveBack = Time.time + 0.1f;
 
     while (Time.time < timeOfTheEndOfTheMoveBack)
     {
       transform.Translate(-transform.forward * 5.0f * Time.deltaTime, Space.World);
       yield return null;
-      // intermediatePosition = transform.position;
     }
 
     float timeOfTheEndOfTheMoveForward = Time.time + 2.0f;
 
     while (Time.time < timeOfTheEndOfTheMoveForward)
     {
-      // transform.Translate((initialPosition - intermediatePosition) / 2 * Time.deltaTime, Space.World);
       transform.Translate(transform.forward / 3.65f * Time.deltaTime, Space.World);
       yield return null;
     }
-
-    // transform.position = initialPosition; // just in case
   }
 
 }

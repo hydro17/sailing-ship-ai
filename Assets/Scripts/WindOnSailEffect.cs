@@ -9,8 +9,22 @@ public class WindOnSailEffect : MonoBehaviour
   Vector3 sailDirection;
   public float sailToWindAngle;
   public Vector3 forceActingOnSail;
-  public float sailFactor = 0;
+
+  float sailFactor = 0;
   float windStrength;
+
+  public float SailFactor
+  {
+    get
+    {
+      return sailFactor;
+    }
+
+    set
+    {
+      sailFactor = value;
+    }
+  }
 
   void Start()
   {

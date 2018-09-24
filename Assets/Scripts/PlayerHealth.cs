@@ -25,7 +25,6 @@ public class PlayerHealth : MonoBehaviour
 
     if (currentHealth == 0)
     {
-      Destroy(GetComponent<BoatController1>());
       Destroy(GetComponent<FloatObjectScript>());
       Destroy(slider);
 

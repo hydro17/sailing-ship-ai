@@ -34,8 +34,8 @@ public class EnemyBoatController : MonoBehaviour
   {
     foreach (GameObject sail in sails)
     {
-      sail.GetComponent<WindOnSailEffect>().sailFactor = 1.0f;
-      Debug.Log("SSSSSSSSSSAAAAAAAAAAAAAILLLLLLLLLSSSSS DOWN");
+      sail.GetComponent<WindOnSailEffect>().SailFactor = 1.0f;
+      Debug.Log("SAILS DOWN");
     }
   }
 
@@ -43,7 +43,7 @@ public class EnemyBoatController : MonoBehaviour
   {
     foreach (GameObject sail in sails)
     {
-      sail.GetComponent<WindOnSailEffect>().sailFactor = 0;
+      sail.GetComponent<WindOnSailEffect>().SailFactor = 0.0f;
     }
   }
 

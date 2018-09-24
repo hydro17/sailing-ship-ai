@@ -25,13 +25,11 @@ public class PlayerAI : MonoBehaviour
 
   WindArea windArea;
   EnemyBoatController enemyBoatController;
-  GameObject playerShip = null;
+  GameObject enemyShip = null;
   GameObject obstacle1 = null, obstacle2 = null;
 
   delegate void ActiveState();
   ActiveState activeState;
-
-  const float degToRad = 0.0174532f;
 
   void Start()
   {
@@ -158,7 +156,7 @@ public class PlayerAI : MonoBehaviour
       }
     }
 
-    Vector3 rotatedVector = GetRotatedVector(shipDirection, angleInDegToAvoidObstacle * degToRad);
+    Vector3 rotatedVector = GetRotatedVector(shipDirection, angleInDegToAvoidObstacle * Mathf.Deg2Rad);
     enemyBoatController.SetNewShipDirection(rotatedVector);
   }
   // STATE end -----------------------------------------------
@@ -177,7 +175,7 @@ public class PlayerAI : MonoBehaviour
       angleInDegToAvoidObstacle = (90 - angleBetweenShortestShiptToObstacleVectorAndShipDirection) + 20;
 
       // due to wind correction of angleInDegToAvoidObstacle
-      Vector3 rotatedVector = GetRotatedVector(shipDirection, angleInDegToAvoidObstacle * degToRad);
+      Vector3 rotatedVector = GetRotatedVector(shipDirection, angleInDegToAvoidObstacle * Mathf.Deg2Rad);
       if (GetVectorToWindAngle(rotatedVector) > 150)
       {
         angleInDegToAvoidObstacle += GetVectorToWindAngle(rotatedVector) - 150;
@@ -189,7 +187,7 @@ public class PlayerAI : MonoBehaviour
       angleInDegToAvoidObstacle = (-90 - angleBetweenShortestShiptToObstacleVectorAndShipDirection) - 20;
 
       // due to wind correction of angleInDegToAvoidObstacle
-      Vector3 rotatedVector = GetRotatedVector(shipDirection, angleInDegToAvoidObstacle * degToRad);
+      Vector3 rotatedVector = GetRotatedVector(shipDirection, angleInDegToAvoidObstacle * Mathf.Deg2Rad);
       if (GetVectorToWindAngle(rotatedVector) < -150)
       {
         angleInDegToAvoidObstacle += GetVectorToWindAngle(rotatedVector) + 150;
@@ -252,9 +250,9 @@ public class PlayerAI : MonoBehaviour
       return;
     }
 
-    if (playerShip)
+    if (enemyShip)
     {
-      Vector3 playerShipDirection = playerShip.transform.forward;
+      Vector3 playerShipDirection = enemyShip.transform.forward;
       playerShipDirection.y = 0;
 
       Vector3 ourShipDirection = transform.forward;
@@ -283,15 +281,15 @@ public class PlayerAI : MonoBehaviour
       Vector3 rotatedVector;
       if (currentShipToWindAngle - angle > 150)
       {
-        rotatedVector = GetRotatedVector(windArea.windDirection, -150 * degToRad);
+        rotatedVector = GetRotatedVector(windArea.windDirection, -150 * Mathf.Deg2Rad);
       }
       else if (currentShipToWindAngle - angle < -150)
       {
-        rotatedVector = GetRotatedVector(windArea.windDirection, 150 * degToRad);
+        rotatedVector = GetRotatedVector(windArea.windDirection, 150 * Mathf.Deg2Rad);
       }
       else
       {
-        rotatedVector = GetRotatedVector(transform.forward, angle * degToRad);
+        rotatedVector = GetRotatedVector(transform.forward, angle * Mathf.Deg2Rad);
       }
 
       enemyBoatController.SetNewShipDirection(rotatedVector);
@@ -329,22 +327,22 @@ public class PlayerAI : MonoBehaviour
   float GetDistanceBetweenParallel()
   {
     // Protection against calling this method when playerShip == null
-    if (!playerShip)
+    if (!enemyShip)
     {
       return 1000000;
     }
 
     float distanceBetweenParallel;
 
-    Vector3 towardsPlayerShipDirection = playerShip.transform.position - transform.position;
+    Vector3 towardsPlayerShipDirection = enemyShip.transform.position - transform.position;
     towardsPlayerShipDirection.y = 0;
 
-    Vector3 playerShipDirection = playerShip.transform.forward;
+    Vector3 playerShipDirection = enemyShip.transform.forward;
     playerShipDirection.y = 0;
 
     float towardsPlayerShipDirectionToPlayerShipAngle = Vector3.SignedAngle(towardsPlayerShipDirection, playerShipDirection, Vector3.up);
 
-    float towardsPlayerShipDirectionToPlayerShipAngleRad = towardsPlayerShipDirectionToPlayerShipAngle * degToRad;
+    float towardsPlayerShipDirectionToPlayerShipAngleRad = towardsPlayerShipDirectionToPlayerShipAngle * Mathf.Deg2Rad;
     if (Mathf.Abs(towardsPlayerShipDirectionToPlayerShipAngle) <= 90)
     {
       distanceBetweenParallel = towardsPlayerShipDirection.magnitude * Mathf.Sin(Mathf.Abs(towardsPlayerShipDirectionToPlayerShipAngleRad));
@@ -360,22 +358,22 @@ public class PlayerAI : MonoBehaviour
   float GetDistanceBetweenPerpendicular()
   {
     // Protection against calling this method when playerShip == null
-    if (!playerShip)
+    if (!enemyShip)
     {
       return 1000000;
     }
 
     float distanceBetweenPerpendicular;
 
-    Vector3 towardsPlayerShipDirection = playerShip.transform.position - transform.position;
+    Vector3 towardsPlayerShipDirection = enemyShip.transform.position - transform.position;
     towardsPlayerShipDirection.y = 0;
 
-    Vector3 playerShipDirection = playerShip.transform.forward;
+    Vector3 playerShipDirection = enemyShip.transform.forward;
     playerShipDirection.y = 0;
 
     float towardsPlayerShipDirectionToPlayerShipAngle = Vector3.SignedAngle(towardsPlayerShipDirection, playerShipDirection, Vector3.up);
 
-    float towardsPlayerShipDirectionToPlayerShipAngleRad = towardsPlayerShipDirectionToPlayerShipAngle * degToRad;
+    float towardsPlayerShipDirectionToPlayerShipAngleRad = towardsPlayerShipDirectionToPlayerShipAngle * Mathf.Deg2Rad;
     if (Mathf.Abs(towardsPlayerShipDirectionToPlayerShipAngle) <= 90)
     {
       distanceBetweenPerpendicular = towardsPlayerShipDirection.magnitude * Mathf.Cos(Mathf.Abs(towardsPlayerShipDirectionToPlayerShipAngleRad));
@@ -399,7 +397,7 @@ public class PlayerAI : MonoBehaviour
       return;
     }
 
-    if (!playerShip)
+    if (!enemyShip)
     {
       activeState = state_PlayerSearching;
       return;
@@ -408,7 +406,7 @@ public class PlayerAI : MonoBehaviour
     // This check can be performed only if playerShip != null
     DetermineInWhichZoneIsOurShip();
 
-    Vector3 playerShipDirection = playerShip.transform.forward;
+    Vector3 playerShipDirection = enemyShip.transform.forward;
     playerShipDirection.y = 0;
 
     Vector3 ourShipDirection = transform.forward;
@@ -427,7 +425,7 @@ public class PlayerAI : MonoBehaviour
     }
     // END of checking the state change conditions---------------
 
-    Debug.DrawLine(transform.position, playerShip.transform.position, Color.blue, 0.0f, true);
+    Debug.DrawLine(transform.position, enemyShip.transform.position, Color.blue, 0.0f, true);
 
     for (int i = 0; i < cannonsTimeOfNextFire.Length; i++)
     {
@@ -472,7 +470,7 @@ public class PlayerAI : MonoBehaviour
   float GetOurShipToPlayerShipAngle()
   {
     Vector3 ourShipDirection = new Vector3(transform.forward.x, 0, transform.forward.z);
-    Vector3 playerShipDirection = new Vector3(playerShip.transform.forward.x, 0, playerShip.transform.forward.z);
+    Vector3 playerShipDirection = new Vector3(enemyShip.transform.forward.x, 0, enemyShip.transform.forward.z);
     return Vector3.SignedAngle(ourShipDirection, playerShipDirection, Vector3.up);
   }
 
@@ -481,15 +479,15 @@ public class PlayerAI : MonoBehaviour
     return Random.Range(2, 4);
   }
 
-  public void SetPlayerShipDetected(GameObject playerShip)
+  public void SetEnemyShipDetected(GameObject enemyShip)
   {
-    this.playerShip = playerShip;
+    this.enemyShip = enemyShip;
     // if (this.playerShip) opponentDetected = true;
   }
 
-  public void SetPlayerShipNotDetected()
+  public void SetEnemyShipNotDetected()
   {
-    this.playerShip = null;
+    this.enemyShip = null;
   }
 
   public void DetermineWhetherClosePlayerShipDetected(bool isPlayerShipDetected)

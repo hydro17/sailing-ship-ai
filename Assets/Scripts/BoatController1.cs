@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BoatController1 : MonoBehaviour
 {
-
   public GameObject[] sails;
   public float shipVelocity;
   public float maxSpeed;
@@ -23,25 +22,6 @@ public class BoatController1 : MonoBehaviour
     Movement();
   }
 
-  void Movement()
-  {
-    if (Input.GetKey(KeyCode.W))
-    {
-      foreach (GameObject sail in sails)
-      {
-        sail.GetComponent<WindOnSailEffect>().sailFactor = 1.0f;
-      }
-    }
-
-    if (Input.GetKey(KeyCode.S))
-    {
-      foreach (GameObject sail in sails)
-      {
-        sail.GetComponent<WindOnSailEffect>().sailFactor = 0;
-      }
-    }
-  }
-
   void FixedUpdate()
   {
     shipVelocity = shipRb.velocity.magnitude;
@@ -52,9 +32,27 @@ public class BoatController1 : MonoBehaviour
     }
 
     float turn = Input.GetAxis("Horizontal");
-
     shipRb.AddTorque(Vector3.up * shipVelocity * turn * 50 * Time.deltaTime);
 
     shipRb.velocity = transform.forward * shipVelocity;
+  }
+
+  void Movement()
+  {
+    if (Input.GetKey(KeyCode.W))
+    {
+      foreach (GameObject sail in sails)
+      {
+        sail.GetComponent<WindOnSailEffect>().SailFactor = 1.0f;
+      }
+    }
+
+    if (Input.GetKey(KeyCode.S))
+    {
+      foreach (GameObject sail in sails)
+      {
+        sail.GetComponent<WindOnSailEffect>().SailFactor = 0.0f;
+      }
+    }
   }
 }

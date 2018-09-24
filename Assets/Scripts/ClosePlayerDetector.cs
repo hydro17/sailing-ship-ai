@@ -24,7 +24,6 @@ public class ClosePlayerDetector : MonoBehaviour
     if (coll.gameObject.tag == "PlayerShip")
     {
       enemyAI.DetermineWhetherClosePlayerShipDetected(false);
-      //  enemyBoatController.SailsDown();
     }
   }
 }

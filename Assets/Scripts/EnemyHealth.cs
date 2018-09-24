@@ -23,7 +23,6 @@ public class EnemyHealth : MonoBehaviour
 
     if (currentHealth == 0)
     {
-      // Destroy(GetComponent<EnemyBoatController>());
       Destroy(GetComponent<FloatObjectScript>());
       Destroy(slider);
 
